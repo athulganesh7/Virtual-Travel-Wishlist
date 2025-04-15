@@ -24,10 +24,10 @@ export default function Home() {
   const featuredDestinations = [
     { id: 1, name: "Santorini, Greece", image: "https://media.istockphoto.com/id/475124388/photo/white-church-in-oia-town-on-santorini-island-in-greece.webp?s=2048x2048&w=is&k=20&c=IRxrR6lRHfI6_iRWLCbm-K08kgpIDoNIYDhwBbVYoaU=", region: "europe", color: "bg-blue-500", description: "White-washed buildings with blue domes overlooking the Aegean Sea." },
     { id: 2, name: "Kyoto, Japan", image: "https://media.istockphoto.com/id/904453184/photo/composite-image-of-mt-fuji-and-tokyo-skyline.jpg?s=2048x2048&w=is&k=20&c=WX4wDucpTekX__e_ryRG3kO4BSoVG2XaJurWT7dJnRs=", region: "asia", color: "bg-red-500", description: "Ancient temples, traditional gardens, and vibrant cherry blossoms." },
-    { id: 3, name: "Machu Picchu, Peru", image: "/api/placeholder/800/500", region: "americas", color: "bg-green-500", description: "Breathtaking Incan citadel set against a mountain backdrop." },
-    { id: 4, name: "Marrakech, Morocco", image: "/api/placeholder/800/500", region: "africa", color: "bg-yellow-500", description: "Vibrant markets, stunning architecture, and rich cultural heritage." },
-    { id: 5, name: "Sydney, Australia", image: "/api/placeholder/800/500", region: "oceania", color: "bg-purple-500", description: "Iconic harbor, beautiful beaches, and vibrant city life." },
-    { id: 6, name: "Northern Lights, Iceland", image: "/api/placeholder/800/500", region: "europe", color: "bg-teal-500", description: "Mesmerizing aurora borealis dancing across the Arctic sky." }
+    { id: 3, name: "Machu Picchu, Peru", image: "https://www.journeysinternational.com/wp-content/uploads/2019/04/Machu-Picchu-Inca-ruins-iStock-1339071089.jpg", region: "americas", color: "bg-green-500", description: "Breathtaking Incan citadel set against a mountain backdrop." },
+    { id: 4, name: "Marrakech, Morocco", image: "https://www.gokitetours.com/wp-content/uploads/2024/09/Best-Things-to-do-in-Marrakech-Morocco-1200x675.webp", region: "africa", color: "bg-yellow-500", description: "Vibrant markets, stunning architecture, and rich cultural heritage." },
+    { id: 5, name: "Sydney, Australia", image: "https://www.downunderendeavours.com/wp-content/uploads/2019/05/sydney-things-to-do-800x500-Sydney-Opera-House-8.jpg", region: "oceania", color: "bg-purple-500", description: "Iconic harbor, beautiful beaches, and vibrant city life." },
+    { id: 6, name: "Northern Lights, Iceland", image: "https://plus.unsplash.com/premium_photo-1664298187856-59d59c47d623?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D", region: "europe", color: "bg-teal-500", description: "Mesmerizing aurora borealis dancing across the Arctic sky." }
   ];
   
   const filteredDestinations = activeRegion === 'all' 
