@@ -76,7 +76,12 @@ const wishlistData = [
 
 
  export default  function Wishlist() {
+
+
   const [items, setItems] = useState(wishlistData);
+
+ 
+
  
   
   return (
@@ -139,6 +144,7 @@ const wishlistData = [
           </div>
         </section>
       </main>
+
       <Footer />
     </div>
 

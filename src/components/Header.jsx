@@ -3,10 +3,12 @@ import { Globe, Heart, CheckSquare, Map, Search, Menu, X, ChevronRight } from 'l
 import { Link } from 'react-router-dom';
 
 
+
 function Header() {
     
     
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
   return (
     <>
           <nav className="relative z-10 bg-white bg-opacity-90 backdrop-blur-lg shadow-lg">
@@ -39,6 +41,7 @@ function Header() {
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
                 </span>
               </a>
+              <button onClick={()=>setOpenDialog(true)} className='border border-black rounded-2xl p-2 bg-black text-white font-bold cursor-pointer hover:bg-white hover:text-black'>Sign In</button>
             </div>
             
             {/* Mobile menu button */}
