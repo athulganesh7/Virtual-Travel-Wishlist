@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 
 
 export default function Home() {
+ 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeRegion, setActiveRegion] = useState('all');
@@ -333,6 +334,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+     
       
        {/* Footer */}
            <Footer/>

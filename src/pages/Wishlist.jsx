@@ -10,6 +10,7 @@ import Footer from '../components/Footer';
 
 
 
+
 const wishlistData = [
   {
     id: 1,
@@ -76,7 +77,10 @@ const wishlistData = [
 
 
  export default  function Wishlist() {
+
   const [items, setItems] = useState(wishlistData);
+
+ 
  
   
   return (
@@ -139,6 +143,7 @@ const wishlistData = [
           </div>
         </section>
       </main>
+     
       <Footer />
     </div>
 
