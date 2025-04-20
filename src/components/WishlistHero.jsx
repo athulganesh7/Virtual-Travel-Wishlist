@@ -1,4 +1,5 @@
 import { Heart, MapPin, Plus } from 'lucide-react'
+
 import React, { useState } from 'react'
 import AddDestination from '../components/AddDestination';
 
@@ -15,6 +16,9 @@ function WishlistHero() {
     
    // push to Firebase here
   };
+
+
+
   return (
     <>
     <div className="relative bg-pink-700 text-white">
@@ -34,7 +38,11 @@ function WishlistHero() {
           <p className="text-xl mb-8">Keep track of all the amazing places you dream of visiting.</p>
 
           <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+
             <button  onClick={() => setModalOpen(true)} className="bg-pink-600 hover:bg-pink-700 px-6 py-3 rounded-md flex items-center justify-center">
+
+            
+
               <Plus className="mr-2 h-5 w-5" />
               Add New Destination
             </button>
@@ -46,9 +54,12 @@ function WishlistHero() {
         </div>
       </div>
     </div>
+
     <AddDestination  isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         onAdd={addDestination}/>
+
+
     </>
   )
 }
