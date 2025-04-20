@@ -8,7 +8,7 @@ const AddDestination = ({ isOpen, onClose,onAdd }) => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    if (!destination || !description) return;
+    if (!destination || !description || !photoURL) return;
 
     onAdd({ destination, description, photoURL });
     setDestination("");
@@ -56,7 +56,7 @@ const AddDestination = ({ isOpen, onClose,onAdd }) => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Photo URL (optional)
+              Photo URL 
             </label>
             <input
               type="url"
@@ -64,6 +64,7 @@ const AddDestination = ({ isOpen, onClose,onAdd }) => {
               onChange={(e) => setPhotoURL(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="https://example.com/photo.jpg"
+              required
             />
           </div>
 
