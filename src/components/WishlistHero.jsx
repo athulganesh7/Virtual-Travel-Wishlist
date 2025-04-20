@@ -1,4 +1,5 @@
 import { Heart, MapPin, Plus } from 'lucide-react'
+
 import React, { useState } from 'react'
 import AddDestination from '../components/AddDestination';
 import { doc, setDoc } from 'firebase/firestore';
