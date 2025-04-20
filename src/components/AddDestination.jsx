@@ -6,7 +6,7 @@ const AddDestination = ({ isOpen, onClose,onAdd }) => {
   const [description, setDescription] = useState("");
   const [photoURL, setPhotoURL] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) =>{
     e.preventDefault();
     if (!destination || !description) return;
 
@@ -36,17 +36,7 @@ const AddDestination = ({ isOpen, onClose,onAdd }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            {/* <label className="block text-sm font-medium text-gray-700 mb-1">
-              Destination Name
-            </label> */}
-            {/* <input
-              type="text"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="E.g. Paris"
-              required
-            /> */}
+           
             <TextField  onChange={(e) => setDestination(e.target.value)} className="w-full" id="outlined-basic" label="Destination name" variant="outlined" />
           </div>
 
