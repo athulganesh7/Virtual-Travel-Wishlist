@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Globe, Heart, CheckSquare, Map, Search, Menu, X, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
@@ -78,21 +78,76 @@ function Header() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <a href="/home" className="text-blue-600 font-medium border-b-2 border-blue-600 pb-1">Home</a>
-              <a href="/wishlist" className="text-gray-600 hover:text-blue-600 font-medium flex items-center group">
-                <Heart className="h-5 w-5 mr-1 group-hover:text-red-500 transition-transform group-hover:scale-110" />
-                <span className="relative">
-                  Wishlist
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                </span>
-              </a>
-              <a href="/visited" className="text-gray-600 hover:text-blue-600 font-medium flex items-center group">
-                <CheckSquare className="h-5 w-5 mr-1 group-hover:text-green-500 transition-transform group-hover:scale-110" />
-                <span className="relative">
-                  Visited
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                </span>
-              </a>
+             
+
+              {/* Home */}
+              <NavLink
+                to="/home"
+                className={({ isActive }) =>
+                  `${isActive
+                    ? 'text-blue-600 font-medium'
+                    : 'text-gray-600 hover:text-blue-600'} pb-1 group`
+                }
+              >
+                {({ isActive }) => (
+                  <span className="relative">
+                    Home
+                    <span
+                      className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                        }`}
+                    ></span>
+                  </span>
+                )}
+              </NavLink>
+
+
+
+
+              {/* Wishlist */}
+              <NavLink
+                to="/wishlist"
+                className={({ isActive }) =>
+                  `${isActive ? 'text-blue-600 font-medium' : 'text-gray-600 hover:text-blue-600'} flex items-center group`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <Heart className="h-5 w-5 mr-1 group-hover:text-red-500 transition-transform group-hover:scale-110" />
+                    <span className="relative">
+                      Wishlist
+                      <span
+                        className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                          }`}
+                      ></span>
+                    </span>
+                  </>
+                )}
+              </NavLink>
+
+              {/* Visited */}
+              <NavLink
+                to="/visited"
+                className={({ isActive }) =>
+                  `${isActive ? 'text-blue-600 font-medium' : 'text-gray-600 hover:text-blue-600'} flex items-center group`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <CheckSquare className="h-5 w-5 mr-1 group-hover:text-green-500 transition-transform group-hover:scale-110" />
+                    <span className="relative">
+                      Visited
+                      <span
+                        className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                          }`}
+                      ></span>
+                    </span>
+                  </>
+                )}
+              </NavLink>
+
+
+
+
 
               {userInfo ? (
                 <div className="flex items-center space-x-4">
@@ -100,13 +155,13 @@ function Header() {
                     src={userInfo.picture}
                     alt="profile"
                     className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-300"
-                    
+
                   />
-                  <button onClick={()=>{
-                  googleLogout();
-                  localStorage.clear();
-                  window.location.reload();
-                }}  className="w-full px-4 py-2 text-sm font-medium text-white border border-red-600 cursor-pointer bg-red-600 rounded-lg shadow-md  hover:bg-white hover:text-red-500 hover:shadow-lg transition-all duration-300">Logout</button>
+                  <button onClick={() => {
+                    googleLogout();
+                    localStorage.clear();
+                    window.location.reload();
+                  }} className="w-full px-4 py-2 text-sm font-medium text-white border border-red-600 cursor-pointer bg-red-600 rounded-lg shadow-md  hover:bg-white hover:text-red-500 hover:shadow-lg transition-all duration-300">Logout</button>
                 </div>
               ) : (
                 <button
