@@ -17,7 +17,7 @@ function Header() {
     
   }, [])
   
-  console.log(userInfo);
+ 
 
 
 
