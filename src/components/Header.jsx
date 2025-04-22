@@ -12,10 +12,12 @@ function Header() {
 
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('user'));
-    if (userInfo) setUserInfo(userInfo);
+    const userdetails = JSON.parse(localStorage.getItem('user'));
+    if (userdetails) setUserInfo(userdetails);
+    
   }, [])
-
+  
+  console.log(userInfo);
 
 
 
@@ -151,7 +153,7 @@ function Header() {
 
               {userInfo ? (
                 <div className="flex items-center space-x-4">
-                  <img
+                  <img crossOrigin="anonymous" referrerPolicy="no-referrer"
                     src={userInfo.picture}
                     alt="profile"
                     className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-300"
