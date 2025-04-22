@@ -5,15 +5,17 @@ const AddDestination = ({ isOpen, onClose,onAdd }) => {
   const [destination, setDestination] = useState("");
   const [description, setDescription] = useState("");
   const [photoURL, setPhotoURL] = useState("");
+  const [bestMonth, setBestMonth] = useState("");
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    if (!destination || !description || !photoURL) return;
+    if (!destination || !description || !photoURL ||!bestMonth) return;
 
-    onAdd({ destination, description, photoURL });
+    onAdd({ destination, description, photoURL,bestMonth });
     setDestination("");
     setDescription("");
     setPhotoURL("");
+    setBestMonth('');
     onClose();
   };
 
@@ -53,6 +55,26 @@ const AddDestination = ({ isOpen, onClose,onAdd }) => {
               required
             />
           </div>
+          
+          <div>
+  <label className="block text-sm font-medium text-gray-700 mb-1">
+    Best Month to Visit
+  </label>
+  <select
+    value={bestMonth}
+    onChange={(e) => setBestMonth(e.target.value)}
+    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    required
+  >
+    <option value="">Select a month</option>
+    {[
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ].map((month) => (
+      <option key={month} value={month}>{month}</option>
+    ))}
+  </select>
+</div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
