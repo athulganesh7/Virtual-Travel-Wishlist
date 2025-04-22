@@ -63,7 +63,7 @@ const wishlistData = [
   },
   {
     id: 6,
-    name: "New York City, USA",
+    name: "New York City, USA", 
     image: "/api/placeholder/400/250",
     description: "Iconic skyline, Broadway shows, and diverse culture.",
     priority: "Medium",
