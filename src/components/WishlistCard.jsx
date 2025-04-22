@@ -1,18 +1,11 @@
-import { Calendar, Heart, Trash2 } from 'lucide-react'
+import { Calendar, CheckSquare, Heart, Trash2 } from 'lucide-react'
 import React, { useState } from 'react'
 
 
 
   
 function WishlistCard({item}) {
-    const [expanded, setExpanded] = useState(false);
-        
-        const priorityColor = {
-          "High": "bg-red-100 text-red-800",
-          "Medium": "bg-yellow-100 text-yellow-800",
-          "Low": "bg-green-100 text-green-800"
-        };
-        
+    
       
     
     
@@ -49,26 +42,17 @@ function WishlistCard({item}) {
 
 
 
-        {expanded && (
-            <div className="mb-4 bg-gray-50 p-4 rounded-md">
-              <h4 className="font-medium text-gray-900 mb-2">Notes:</h4>
-              <p className="text-gray-700">{item.notes}</p>
-            </div>
-          )}
+        
   
           
           <div className="flex justify-between items-center">
-          <button 
-            onClick={() => setExpanded(!expanded)} 
-            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-          >
-            {expanded ? "Show Less" : "Show More"}
-          </button>
-          
-          <div className="flex space-x-2">
-            <button className="text-green-600 hover:text-green-800 p-1">
-              <Calendar className="h-5 w-5" />
+          <button className="text-green-600 flex justify-between cursor-pointer hover:text-green-800 p-1">
+            <CheckSquare className="h-5 w-5 mr-1" />
+           <span className='text-blue-600'>Add To Visit</span> 
+            
             </button>
+          <div className="flex space-x-2">
+           
             <button className="text-pink-600 hover:text-pink-800 p-1">
               <Heart className="h-5 w-5" fill="currentColor" />
             </button>

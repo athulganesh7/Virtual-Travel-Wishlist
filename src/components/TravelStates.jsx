@@ -3,8 +3,7 @@ import { MapPin,Calendar,Award,Camera } from 'lucide-react';
 
 const TravelStates = () => {
   const stats = [
-    { icon: <MapPin />, label: "Most Visited Region", value: "Europe" },
-    { icon: <Calendar />, label: "Most Recent Trip", value: "Cape Town, May 2024" },
+ 
     { icon: <Award />, label: "Top Rated Destination", value: "Paris, France" },
     { icon: <Camera />, label: "Total Photos", value: "236" }
   ];
@@ -12,7 +11,7 @@ const TravelStates = () => {
   return (
     <div className="bg-gray-100 py-8 border-b border-gray-200">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {stats.map((stat, index) => (
             <div key={index} className="bg-white p-4 rounded-lg shadow flex items-center">
               <div className="bg-green-100 p-3 rounded-full mr-4">
