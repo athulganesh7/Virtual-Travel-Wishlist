@@ -219,7 +219,7 @@ function Header() {
             {/* <h2 className="text-2xl font-semibold text-center mb-4">Welcome</h2> */}
             <div className='flex items-center justify-center '>
               <img className='w-15' src='/src/assets/logo-removebg.png' alt="" />
-              <p className='-ml-3 mt-3 font-semibold'>ravel wishlist</p>
+              <p className='-ml-3 mt-3 font-semibold'>travel wishlist</p>
             </div>
             <p className="text-center text-gray-600 mb-6">Sign in to continue</p>
             <button

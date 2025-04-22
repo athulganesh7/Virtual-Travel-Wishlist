@@ -1,7 +1,7 @@
 import React from 'react'
-import { MapPin, Plus , CheckSquare } from 'lucide-react'
+import { CheckSquare } from 'lucide-react'
 // Visited Hero Section
-const VistedHero = ({ totalDestinations, totalCountries }) => {
+const VistedHero = ({ totalDestinations }) => {
   return (
     <div className="relative bg-green-700 text-white">
       <div 
@@ -24,22 +24,9 @@ const VistedHero = ({ totalDestinations, totalCountries }) => {
               <div className="text-3xl font-bold">{totalDestinations}</div>
               <div className="text-green-200">Destinations</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold">{totalCountries}</div>
-              <div className="text-green-200">Countries</div>
-            </div>
+           
           </div>
-          
-          <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-            <button className="bg-green-600 hover:bg-green-800 px-6 py-3 rounded-md flex items-center justify-center">
-              <Plus className="mr-2 h-5 w-5" />
-              Add New Memory
-            </button>
-            <button className="bg-white text-green-700 hover:bg-gray-100 px-6 py-3 rounded-md flex items-center justify-center">
-              <MapPin className="mr-2 h-5 w-5" />
-              View Travel Map
-            </button>
-          </div>
+       
         </div>
       </div>
     </div>
