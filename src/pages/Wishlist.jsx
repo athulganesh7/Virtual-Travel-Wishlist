@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {  Filter  } from 'lucide-react';
 
 import WishlistFilters from '../components/WishlistFilters';
@@ -7,78 +7,134 @@ import WishlistGrid from '../components/WishlistGrid';
 import EmptyWishlist from '../components/EmptyWishlist';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../services/FirebaseConfig';
 
 
 
-const wishlistData = [
-  {
-    id: 1,
-    name: "Kyoto, Japan",
-    image: "/api/placeholder/400/250",
-    description: "Ancient temples, traditional gardens, and stunning cherry blossoms.",
-    priority: "High",
-    bestTimeToVisit: "Spring (March-April)",
-    category: "Cultural",
-    notes: "Visit during cherry blossom season. Explore Fushimi Inari Shrine and Arashiyama Bamboo Grove."
-  },
-  {
-    id: 2,
-    name: "Santorini, Greece",
-    image: "/api/placeholder/400/250",
-    description: "Breathtaking sunsets, white-washed buildings, and crystal-clear waters.",
-    priority: "Medium",
-    bestTimeToVisit: "Late Spring or Early Fall",
-    category: "Beach",
-    notes: "Stay in Oia for the best sunset views. Visit the black sand beaches."
-  },
-  {
-    id: 3,
-    name: "Machu Picchu, Peru",
-    image: "/api/placeholder/400/250",
-    description: "Ancient Incan city set high in the Andes Mountains.",
-    priority: "High",
-    bestTimeToVisit: "May to September",
-    category: "Adventure",
-    notes: "Book Inca Trail permits well in advance. Consider a guided tour."
-  },
-  {
-    id: 4,
-    name: "Safari in Tanzania",
-    image: "/api/placeholder/400/250",
-    description: "Witness the Great Migration across the Serengeti.",
-    priority: "Medium",
-    bestTimeToVisit: "June to October",
-    category: "Wildlife",
-    notes: "Visit Ngorongoro Crater and Serengeti National Park. Try to time visit with the wildebeest migration."
-  },
-  {
-    id: 5,
-    name: "Northern Lights in Iceland",
-    image: "/api/placeholder/400/250",
-    description: "Spectacular display of natural lights in the night sky.",
-    priority: "Low",
-    bestTimeToVisit: "September to March",
-    category: "Natural Wonder",
-    notes: "Stay at least a week to increase chances of seeing the aurora. Rent a car to chase the lights."
-  },
-  {
-    id: 6,
-    name: "New York City, USA", 
-    image: "/api/placeholder/400/250",
-    description: "Iconic skyline, Broadway shows, and diverse culture.",
-    priority: "Medium",
-    bestTimeToVisit: "Spring or Fall",
-    category: "Urban",
-    notes: "Get the New York City Pass for attractions. Explore different neighborhoods."
-  }
-];
+// const wishlistData = [
+  // {
+  //   id: 1,
+  //   name: "Kyoto, Japan",
+  //   image: "/api/placeholder/400/250",
+  //   description: "Ancient temples, traditional gardens, and stunning cherry blossoms.",
+  //   priority: "High",
+  //   bestTimeToVisit: "Spring (March-April)",
+  //   category: "Cultural",
+  //   notes: "Visit during cherry blossom season. Explore Fushimi Inari Shrine and Arashiyama Bamboo Grove."
+  // },
+  // {
+  //   id: 2,
+  //   name: "Santorini, Greece",
+  //   image: "/api/placeholder/400/250",
+  //   description: "Breathtaking sunsets, white-washed buildings, and crystal-clear waters.",
+  //   priority: "Medium",
+  //   bestTimeToVisit: "Late Spring or Early Fall",
+  //   category: "Beach",
+  //   notes: "Stay in Oia for the best sunset views. Visit the black sand beaches."
+  // },
+  // {
+  //   id: 3,
+  //   name: "Machu Picchu, Peru",
+  //   image: "/api/placeholder/400/250",
+  //   description: "Ancient Incan city set high in the Andes Mountains.",
+  //   priority: "High",
+  //   bestTimeToVisit: "May to September",
+  //   category: "Adventure",
+  //   notes: "Book Inca Trail permits well in advance. Consider a guided tour."
+  // },
+  // {
+  //   id: 4,
+  //   name: "Safari in Tanzania",
+  //   image: "/api/placeholder/400/250",
+  //   description: "Witness the Great Migration across the Serengeti.",
+  //   priority: "Medium",
+  //   bestTimeToVisit: "June to October",
+  //   category: "Wildlife",
+  //   notes: "Visit Ngorongoro Crater and Serengeti National Park. Try to time visit with the wildebeest migration."
+  // },
+  // {
+  //   id: 5,
+  //   name: "Northern Lights in Iceland",
+  //   image: "/api/placeholder/400/250",
+  //   description: "Spectacular display of natural lights in the night sky.",
+  //   priority: "Low",
+  //   bestTimeToVisit: "September to March",
+  //   category: "Natural Wonder",
+  //   notes: "Stay at least a week to increase chances of seeing the aurora. Rent a car to chase the lights."
+  // },
+  // {
+  //   id: 6,
+  //   name: "New York City, USA", 
+  //   image: "/api/placeholder/400/250",
+  //   description: "Iconic skyline, Broadway shows, and diverse culture.",
+  //   priority: "Medium",
+  //   bestTimeToVisit: "Spring or Fall",
+  //   category: "Urban",
+  //   notes: "Get the New York City Pass for attractions. Explore different neighborhoods."
+  // }
+
+ 
+  
+
 
 
 
  export default  function Wishlist() {
 
+   const [dataStatus,setDataStatus]=useState([])
 
-  const [items, setItems] = useState(wishlistData);
+
+  useEffect(()=>{
+    GetData()
+  },[dataStatus])
+
+
+   
+   
+   const [items, setItems] = useState([]);
+   
+   const navigate = useNavigate();
+
+
+  const GetData = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!user) {
+      console.log("No user found in localStorage");
+      navigate('/');  
+      return;
+    }
+    console.log("User data:", user); // ✅ Debugging step
+      
+    try {
+      const q = query(collection(db, 'TripDetails'), where('userEmail', '==', user.email));
+      const querySnapshot = await getDocs(q);
+      setItems([]);
+
+      console.log("Query Snapshot empty:", querySnapshot.empty); // ✅ Debugging step
+
+      if (querySnapshot.empty) {
+        console.log("No trips found for this user.");
+        return;
+      }
+
+      // ✅ Collect all trips into an array
+      const trips = [];
+      querySnapshot.forEach((doc) => {
+        console.log("Trip found:", doc.id, doc.data()); // ✅ Debugging step
+        trips.push(doc.data());
+      });
+
+      setItems(trips);  // ✅ Update state with collected trips
+      console.log("Updated state:", trips); // ✅ Debugging step
+
+    } catch (error) {
+      console.error("Error fetching trips:", error);
+    }
+  };
+
 
  
 
@@ -92,7 +148,7 @@ const wishlistData = [
   <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
-        <WishlistHero />
+        <WishlistHero setDataStatus={setDataStatus} />
         <WishlistFilters />
         
         <section className="py-12 bg-gray-50">
@@ -106,7 +162,7 @@ const wishlistData = [
             </div>
             
             {items.length > 0 ? (
-              <WishlistGrid items={items} />
+              <WishlistGrid GetData={GetData}  items={items} />
             ) : (
               <EmptyWishlist />
             )}
