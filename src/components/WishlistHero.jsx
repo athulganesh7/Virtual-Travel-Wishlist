@@ -37,8 +37,8 @@ function WishlistHero({setDataStatus}) {
         userEmail: user?.email,
         id: docId
       })
-      toast.success('wishlist added')
       setDataStatus(result)
+      toast.success('wishlist added')
 
     } catch (error) {
       console.log(error);
