@@ -36,7 +36,8 @@ const AddDestination = ({ isOpen, onClose, onAdd }) => {
         <h2 className="text-2xl font-semibold text-center mb-4">Add Destination</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <GooglePlacesAutocomplete
+          <label htmlFor="place">Destination name</label>
+          <GooglePlacesAutocomplete id='place'
             selectProps={{
               value: destination ? { label: destination, value: destination } : null,
               onChange: (v) => setDestination(v.label),
