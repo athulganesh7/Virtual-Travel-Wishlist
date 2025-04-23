@@ -8,7 +8,8 @@ import { toast, ToastContainer } from 'react-toastify';
 
 
 
-function WishlistHero() {
+function WishlistHero({setDataStatus}) {
+  
 
   const [modalOpen, setModalOpen] = useState(false);
   const [wishlist, setWishlist] = useState([]);
@@ -31,12 +32,13 @@ function WishlistHero() {
     const user = JSON.parse(localStorage.getItem('user'))
     const docId = Date.now().toString()
     try {
-      await setDoc(doc(db, "TripDetails", docId), {
+     const result= await setDoc(doc(db, "TripDetails", docId), {
         userInput: updatedWishlist,
         userEmail: user?.email,
         id: docId
       })
       toast.success('wishlist added')
+      setDataStatus(result)
 
     } catch (error) {
       console.log(error);
