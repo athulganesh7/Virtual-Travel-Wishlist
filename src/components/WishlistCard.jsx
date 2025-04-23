@@ -46,7 +46,7 @@ function WishlistCard({item,GetData}) {
 
    
     
-   
+  
     
   return (
     <>
@@ -83,7 +83,7 @@ function WishlistCard({item,GetData}) {
   
           
           <div className="flex justify-between items-center">
-          <button className="text-green-600 flex justify-between cursor-pointer hover:text-green-800 p-1" onClick={handleAddToVisit}>
+          <button className="text-green-600 flex justify-between cursor-pointer hover:text-green-800 p-1">
             <CheckSquare className="h-5 w-5 mr-1" />
            <span className='text-blue-600'>Add To Visit</span> 
             
@@ -99,7 +99,6 @@ function WishlistCard({item,GetData}) {
           </div>
         </div>
       </div>
-      <ToastContainer />   
     </div>
 
 
