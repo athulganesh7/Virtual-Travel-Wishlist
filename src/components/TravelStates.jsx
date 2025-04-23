@@ -1,5 +1,5 @@
 import React from 'react'
-import { MapPin,Calendar,Award,Camera } from 'lucide-react';
+import { Award,Camera } from 'lucide-react';
 
 const TravelStates = () => {
   const stats = [

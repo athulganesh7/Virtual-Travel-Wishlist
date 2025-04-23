@@ -8,6 +8,7 @@ import TravelStates from '../components/TravelStates';
 import VistedFilters from '../components/VistedFilters';
 import VistedGrid from '../components/VistedGrid';
 import EmptyVisted from '../components/EmptyVisted'
+
 // Sample visited places data
 const visitedPlacesData = [
   {

@@ -1,8 +1,12 @@
 import { deleteDoc, doc } from 'firebase/firestore';
 import { Calendar, CheckSquare, Heart, Trash2 } from 'lucide-react'
+
+
+import 'react-toastify/dist/ReactToastify.css'
 import React, { useState } from 'react'
 import { db } from '../services/FirebaseConfig';
 import { toast, ToastContainer } from 'react-toastify';
+
 
 
 
@@ -24,6 +28,13 @@ function WishlistCard({item,GetData}) {
         
        
       
+
+      // Handle adding to visit list and showing the toast
+  const handleAddToVisit = () => {
+    toast.success('Added to Visited');
+    // You can add more logic here, like updating the state or sending data to the backend
+  }
+
           
         } catch (error) {
           console.log(error);
@@ -33,10 +44,9 @@ function WishlistCard({item,GetData}) {
         }
        
 
-      }
+   
     
-    
-  
+   
     
   return (
     <>
@@ -73,7 +83,7 @@ function WishlistCard({item,GetData}) {
   
           
           <div className="flex justify-between items-center">
-          <button className="text-green-600 flex justify-between cursor-pointer hover:text-green-800 p-1">
+          <button className="text-green-600 flex justify-between cursor-pointer hover:text-green-800 p-1" onClick={handleAddToVisit}>
             <CheckSquare className="h-5 w-5 mr-1" />
            <span className='text-blue-600'>Add To Visit</span> 
             
@@ -89,7 +99,9 @@ function WishlistCard({item,GetData}) {
           </div>
         </div>
       </div>
+      <ToastContainer />   
     </div>
+
 
 
     <ToastContainer
@@ -107,6 +119,7 @@ function WishlistCard({item,GetData}) {
       />
 
           
+
     </>
 
     
