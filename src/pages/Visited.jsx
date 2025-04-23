@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import {   Filter,  Plus } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -8,89 +8,29 @@ import TravelStates from '../components/TravelStates';
 import VistedFilters from '../components/VistedFilters';
 import VistedGrid from '../components/VistedGrid';
 import EmptyVisted from '../components/EmptyVisted'
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../services/FirebaseConfig"; 
 // Sample visited places data
-const visitedPlacesData = [
-  {
-    id: 1,
-    name: "Paris, France",
-    image: "/api/placeholder/400/250",
-    description: "The city of lights with iconic landmarks and romantic atmosphere.",
-    visitDate: "June 2023",
-    rating: 5,
-    category: "Urban",
-    highlights: "Visited the Eiffel Tower at sunset, explored the Louvre Museum, enjoyed pastries at local bakeries.",
-    photos: 24,
-    memories: "The view from Montmartre at dusk was breathtaking. Met some lovely locals who showed us hidden cafés.",
-    wouldRecommend: true
-  },
-  {
-    id: 2,
-    name: "Bali, Indonesia",
-    image: "/api/placeholder/400/250",
-    description: "Tropical paradise with beautiful beaches and rich culture.",
-    visitDate: "August 2022",
-    rating: 4,
-    category: "Beach",
-    highlights: "Explored rice terraces in Ubud, surfed at Kuta Beach, watched traditional dance performances.",
-    photos: 42,
-    memories: "Waking up to the sound of waves every morning. The local food was incredibly flavorful.",
-    wouldRecommend: true
-  },
-  {
-    id: 3,
-    name: "Grand Canyon, USA",
-    image: "/api/placeholder/400/250",
-    description: "One of the world's most spectacular natural wonders.",
-    visitDate: "May 2024",
-    rating: 5,
-    category: "Natural Wonder",
-    highlights: "Hiked Bright Angel Trail, watched sunrise at Mather Point, took a helicopter tour.",
-    photos: 36,
-    memories: "The sheer scale of the canyon was humbling. The colors during sunrise were indescribable.",
-    wouldRecommend: true
-  },
-  {
-    id: 4,
-    name: "Rome, Italy",
-    image: "/api/placeholder/400/250",
-    description: "Ancient ruins, art, and amazing food in the Eternal City.",
-    visitDate: "October 2023",
-    rating: 5,
-    category: "Cultural",
-    highlights: "Toured the Colosseum, visited Vatican City, tossed a coin in the Trevi Fountain.",
-    photos: 58,
-    memories: "Getting lost in the narrow streets and finding the most incredible small restaurant. The pasta was divine!",
-    wouldRecommend: true
-  },
-  {
-    id: 5,
-    name: "Bangkok, Thailand",
-    image: "/api/placeholder/400/250",
-    description: "Vibrant city with ornate shrines, bustling markets, and amazing street food.",
-    visitDate: "January 2022",
-    rating: 3,
-    category: "Urban",
-    highlights: "Visited the Grand Palace, explored floating markets, tried various street foods.",
-    photos: 29,
-    memories: "The contrast between ancient temples and modern skyscrapers. The city never sleeps!",
-    wouldRecommend: false
-  },
-  {
-    id: 6,
-    name: "Cape Town, South Africa",
-    image: "/api/placeholder/400/250",
-    description: "Stunning coastal city with Table Mountain as a backdrop.",
-    visitDate: "March 2024",
-    rating: 5,
-    category: "Adventure",
-    highlights: "Hiked Table Mountain, visited Robben Island, drove along Chapman's Peak.",
-    photos: 47,
-    memories: "The view from the top of Table Mountain was unforgettable. The local wines were excellent.",
-    wouldRecommend: true
-  }
-];
+
 export default function Visited() {
-  const [items, setItems] = useState(visitedPlacesData);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchVisitedTrips = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "VisitedTrips"));
+        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching visited trips:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchVisitedTrips();
+  }, []);
   
   // Calculate stats
   const totalDestinations = items.length;
