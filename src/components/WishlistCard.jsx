@@ -1,5 +1,6 @@
 import { Calendar, CheckSquare, Heart, Trash2 } from 'lucide-react'
-import React, { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 
@@ -7,9 +8,13 @@ import React, { useState } from 'react'
 function WishlistCard({item}) {
     
       
+      // Handle adding to visit list and showing the toast
+  const handleAddToVisit = () => {
+    toast.success('Added to Visited');
+    // You can add more logic here, like updating the state or sending data to the backend
+  }
     
-    
-  
+   
     
   return (
     <>
@@ -46,7 +51,7 @@ function WishlistCard({item}) {
   
           
           <div className="flex justify-between items-center">
-          <button className="text-green-600 flex justify-between cursor-pointer hover:text-green-800 p-1">
+          <button className="text-green-600 flex justify-between cursor-pointer hover:text-green-800 p-1" onClick={handleAddToVisit}>
             <CheckSquare className="h-5 w-5 mr-1" />
            <span className='text-blue-600'>Add To Visit</span> 
             
@@ -62,9 +67,10 @@ function WishlistCard({item}) {
           </div>
         </div>
       </div>
+      <ToastContainer />   
     </div>
 
-          
+
     </>
 
     
