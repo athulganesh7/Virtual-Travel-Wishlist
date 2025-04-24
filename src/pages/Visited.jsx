@@ -8,39 +8,60 @@ import TravelStates from '../components/TravelStates';
 import VistedFilters from '../components/VistedFilters';
 import VistedGrid from '../components/VistedGrid';
 import EmptyVisted from '../components/EmptyVisted'
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../services/FirebaseConfig"; 
 // Sample visited places data
 
 export default function Visited() {
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    const fetchVisitedTrips = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "VisitedTrips"));
-        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setItems(data);
-      } catch (error) {
-        console.error("Error fetching visited trips:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+
+
+    // const fetchVisitedTrips = async () => {
+    //   try {
+    //     const querySnapshot = await getDocs(collection(db, "VisitedTrips"));
+    //     const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    //     setItems(data);
+    //   } catch (error) {
+    //     console.error("Error fetching visited trips:", error);
+    //   } finally {
+        
+    //   }
+    // };
   
+     const fetchVisitedTrips = async () => {
+          const user = JSON.parse(localStorage.getItem('user'));
+          if (!user) {
+            console.log("No user found in localStorage");
+            navigate('/');
+            return;
+          }
+        
+          const visitedRef = collection(db, 'VisitedTrips');
+          const q = query(visitedRef, where('email', '==', user.email));
+          const snapshot = await getDocs(q);
+        
+          const item = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setItems(item);
+          console.log(items);
+          
+        };
+    
+    
     fetchVisitedTrips();
+
   }, []);
   
   // Calculate stats
   const totalDestinations = items.length;
-  const uniqueCountries = new Set(items.map(item => item.name.split(',')[1]?.trim())).size;
+  // const uniqueCountries = new Set(items.map(item => item.name.split(',')[1]?.trim())).size;
   
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
-        <VistedHero totalDestinations={totalDestinations} totalCountries={uniqueCountries} />
+        <VistedHero totalDestinations={totalDestinations}  />
         <TravelStates />
         <VistedFilters />
         
