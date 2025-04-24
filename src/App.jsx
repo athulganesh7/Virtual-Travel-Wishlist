@@ -12,10 +12,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/visited" element={<Visited />} />
+        <Route path="/" element={<Landing />}/>
+        <Route path="/home" element={<Home />}/>
+        <Route path="/wishlist" element={<Wishlist />}/>
+        <Route path="/visited" element={<Visited />}/>
       </Routes>
     </>
   )

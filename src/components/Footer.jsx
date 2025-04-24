@@ -9,7 +9,7 @@ function Footer() {
                 <div className="grid md:grid-cols-4 gap-8">
                   <div>
                     <div className="flex items-center space-x-2 text-white font-bold text-xl mb-6">
-                      <Globe size={24} />
+                      <Globe size={24}/>
                       <span>Travel Wishlist</span>
                     </div>
                     <p className="text-gray-400">
