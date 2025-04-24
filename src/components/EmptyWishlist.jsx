@@ -2,7 +2,7 @@ import { Heart, Plus } from 'lucide-react'
 import React from 'react'
 
 
-function EmptyWishlist() {
+function EmptyWishlist({setModalOpen}) {
   return (
     <>
      <div className="text-center py-16">
@@ -13,7 +13,7 @@ function EmptyWishlist() {
       <p className="text-gray-600 mb-6 max-w-md mx-auto">
         Start adding destinations to your travel wishlist and keep track of all the amazing places you want to visit.
       </p>
-      <button className="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-md flex items-center justify-center mx-auto">
+      <button onClick={()=>setModalOpen(true)} className="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-md flex items-center justify-center mx-auto">
         <Plus className="mr-2 h-5 w-5" />
         Add Your First Destination
       </button>

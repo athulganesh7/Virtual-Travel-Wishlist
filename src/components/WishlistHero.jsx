@@ -9,10 +9,9 @@ import { Link } from 'react-router-dom';
 
 
 
-function WishlistHero({setDataStatus}) {
-  
+function WishlistHero({setDataStatus,modalOpen,setModalOpen}) {
 
-  const [modalOpen, setModalOpen] = useState(false);
+
   const [wishlist, setWishlist] = useState([]);
 
   const addDestination = async (newItem) => {
