@@ -1,7 +1,7 @@
 import React from 'react'
 import VistedItem from '../components/VistedItem';
 import { useEffect, useState } from 'react';
-import { collection, getDocs, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../services/FirebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,33 +10,39 @@ const VistedGrid  = () => {
 
     const navigate = useNavigate()
   
-    const fetchVisited = async () => {
-
+    // const fetchVisited = async () => {
+    //   const user = JSON.parse(localStorage.getItem('user'))
+    //   if (!user) {
+    //     console.log("No user found in localStorage");
+    //     navigate('/');  
+    //     return;
+    //   }
+    //   const snapshot = await getDocs(collection(db, 'VisitedTrips'), where('email', '==', user.email));
       
-      const user = JSON.parse(localStorage.getItem('user'))
+    //   const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    //   setVisited(items);
+    //   console.log(visited);
+    // };
+
+    const fetchVisited = async () => {
+      const user = JSON.parse(localStorage.getItem('user'));
       if (!user) {
         console.log("No user found in localStorage");
-        navigate('/');  
+        navigate('/');
         return;
       }
-
-      // const snapshot = await getDocs(collection(db, 'VisitedTrips'));
-
-      const snapshot = await getDocs(collection(db, 'VisitedTrips'), where('userEmail', '==', user.email));
-      
+    
+      const visitedRef = collection(db, 'VisitedTrips');
+      const q = query(visitedRef, where('email', '==', user.email));
+      const snapshot = await getDocs(q);
+    
       const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-      
-
-
-
-
       setVisited(items);
       console.log(visited);
       
-
-
     };
+    
   
     useEffect(() => {
       fetchVisited();
