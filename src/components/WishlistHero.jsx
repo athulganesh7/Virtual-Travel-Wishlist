@@ -5,6 +5,7 @@ import AddDestination from '../components/AddDestination';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../services/FirebaseConfig';
 import { toast, ToastContainer } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 
 
@@ -69,10 +70,12 @@ function WishlistHero({setDataStatus}) {
                 <Plus className="mr-2 h-5 w-5" />
                 Add New Destination
               </button>
-              <button className="bg-white text-pink-700 hover:bg-gray-100 px-6 py-3 rounded-md flex items-center justify-center">
-                <MapPin className="mr-2 h-5 w-5" />
-                View on Map
-              </button>
+             <Link target='blank' to={'https://www.google.co.in/maps/'}>
+                <button className="bg-white text-pink-700 hover:bg-gray-100 px-6 py-3 rounded-md flex items-center justify-center">
+                  <MapPin className="mr-2 h-5 w-5" />
+                  View on Map
+                </button>
+             </Link>
             </div>
           </div>
         </div>

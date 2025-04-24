@@ -1,10 +1,13 @@
 import React from 'react';
 import { Calendar, CheckSquare, Heart, Trash2 } from 'lucide-react';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { db } from '../services/FirebaseConfig';
 import { toast, ToastContainer } from 'react-toastify';
 import { collection, addDoc } from 'firebase/firestore';
+
+
 function WishlistCard({ item, GetData }) {
+
   const deleteData = async (id) => {
     try {
       const docRef = doc(db, 'TripDetails', id);
@@ -20,8 +23,11 @@ function WishlistCard({ item, GetData }) {
   const data = item?.userInput?.[0];
 
   const markAsVisited = async (item) => {
+    const user = JSON.parse(localStorage.getItem('user'))
+
     const data = item?.userInput?.[0];
     const visitedData = {
+      email:user?.email,
       name: data.destination,
       description: data.description,
       visitDate: new Date().toISOString().split("T")[0], // or get from user
@@ -33,7 +39,7 @@ function WishlistCard({ item, GetData }) {
       highlights: "Great place to visit!", // optional
       memories: "Unforgettable experience!", // optional
     };
-  
+
     try {
       await addDoc(collection(db, 'VisitedTrips'), visitedData);
       await deleteData(item.id); // optional: remove from wishlist
@@ -43,7 +49,17 @@ function WishlistCard({ item, GetData }) {
       console.error(err);
       toast.error('Failed to move item');
     }
+    // const docId = item.id
+
+    // const user = JSON.parse(localStorage.getItem('user'))
+    // const result= await setDoc(doc(db, "VisitedTrips", docId),item)
+
+
   };
+
+ 
+
+
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-gray-200 flex flex-col">
       <img
@@ -67,12 +83,12 @@ function WishlistCard({ item, GetData }) {
         </div>
 
         <div className="flex justify-between items-center mt-auto">
-        <button 
-  className="text-blue-600 hover:text-blue-800 flex items-center text-sm"
-  onClick={() => markAsVisited(item)}
->
-  <CheckSquare className="h-4 w-4 mr-1" /> Add To Visit
-</button>
+          <button
+            className="text-blue-600 hover:text-blue-800 flex items-center text-sm"
+            onClick={() => markAsVisited(item)}
+          >
+            <CheckSquare className="h-4 w-4 mr-1" /> Add To Visit
+          </button>
           <div className="flex space-x-2">
             <button className="text-pink-600 hover:text-pink-800">
               <Heart className="h-5 w-5" fill="currentColor" />

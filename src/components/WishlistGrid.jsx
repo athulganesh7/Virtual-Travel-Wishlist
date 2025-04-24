@@ -19,4 +19,4 @@ function WishlistGrid({ items, GetData }) {
   );
 }
 
-export default WishlistGrid;
+export default WishlistGrid

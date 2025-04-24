@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { CheckSquare, Camera , Calendar , MapPin ,Award, Star } from 'lucide-react';
 
 const VistedItem = ({ item }) => {
+  
     const [expanded, setExpanded] = useState(false);
     
     // Generate stars based on rating
