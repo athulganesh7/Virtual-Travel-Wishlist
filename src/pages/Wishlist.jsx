@@ -13,67 +13,7 @@ import { db } from '../services/FirebaseConfig';
 
 
 
-// const wishlistData = [
-  // {
-  //   id: 1,
-  //   name: "Kyoto, Japan",
-  //   image: "/api/placeholder/400/250",
-  //   description: "Ancient temples, traditional gardens, and stunning cherry blossoms.",
-  //   priority: "High",
-  //   bestTimeToVisit: "Spring (March-April)",
-  //   category: "Cultural",
-  //   notes: "Visit during cherry blossom season. Explore Fushimi Inari Shrine and Arashiyama Bamboo Grove."
-  // },
-  // {
-  //   id: 2,
-  //   name: "Santorini, Greece",
-  //   image: "/api/placeholder/400/250",
-  //   description: "Breathtaking sunsets, white-washed buildings, and crystal-clear waters.",
-  //   priority: "Medium",
-  //   bestTimeToVisit: "Late Spring or Early Fall",
-  //   category: "Beach",
-  //   notes: "Stay in Oia for the best sunset views. Visit the black sand beaches."
-  // },
-  // {
-  //   id: 3,
-  //   name: "Machu Picchu, Peru",
-  //   image: "/api/placeholder/400/250",
-  //   description: "Ancient Incan city set high in the Andes Mountains.",
-  //   priority: "High",
-  //   bestTimeToVisit: "May to September",
-  //   category: "Adventure",
-  //   notes: "Book Inca Trail permits well in advance. Consider a guided tour."
-  // },
-  // {
-  //   id: 4,
-  //   name: "Safari in Tanzania",
-  //   image: "/api/placeholder/400/250",
-  //   description: "Witness the Great Migration across the Serengeti.",
-  //   priority: "Medium",
-  //   bestTimeToVisit: "June to October",
-  //   category: "Wildlife",
-  //   notes: "Visit Ngorongoro Crater and Serengeti National Park. Try to time visit with the wildebeest migration."
-  // },
-  // {
-  //   id: 5,
-  //   name: "Northern Lights in Iceland",
-  //   image: "/api/placeholder/400/250",
-  //   description: "Spectacular display of natural lights in the night sky.",
-  //   priority: "Low",
-  //   bestTimeToVisit: "September to March",
-  //   category: "Natural Wonder",
-  //   notes: "Stay at least a week to increase chances of seeing the aurora. Rent a car to chase the lights."
-  // },
-  // {
-  //   id: 6,
-  //   name: "New York City, USA", 
-  //   image: "/api/placeholder/400/250",
-  //   description: "Iconic skyline, Broadway shows, and diverse culture.",
-  //   priority: "Medium",
-  //   bestTimeToVisit: "Spring or Fall",
-  //   category: "Urban",
-  //   notes: "Get the New York City Pass for attractions. Explore different neighborhoods."
-  // }
+
 
  
   
@@ -82,6 +22,8 @@ import { db } from '../services/FirebaseConfig';
 
 
  export default  function Wishlist() {
+    const [modalOpen, setModalOpen] = useState(false);
+  
 
    const [dataStatus,setDataStatus]=useState([])
 
@@ -148,7 +90,7 @@ import { db } from '../services/FirebaseConfig';
   <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
-        <WishlistHero setDataStatus={setDataStatus} />
+        <WishlistHero modalOpen={modalOpen}  setModalOpen={setModalOpen} setDataStatus={setDataStatus} />
         <WishlistFilters />
         
         <section className="py-12 bg-gray-50">
@@ -164,7 +106,7 @@ import { db } from '../services/FirebaseConfig';
             {items.length > 0 ? (
               <WishlistGrid GetData={GetData}  items={items} />
             ) : (
-              <EmptyWishlist />
+              <EmptyWishlist setModalOpen={setModalOpen} />
             )}
           </div>
         </section>
