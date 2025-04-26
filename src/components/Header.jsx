@@ -14,10 +14,10 @@ function Header() {
   useEffect(() => {
     const userdetails = JSON.parse(localStorage.getItem('user'));
     if (userdetails) setUserInfo(userdetails);
-    
+
   }, [])
-  
- 
+
+
 
 
 
@@ -80,7 +80,7 @@ function Header() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-             
+
 
               {/* Home */}
               <NavLink
@@ -193,15 +193,45 @@ function Header() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute w-full bg-white bg-opacity-95 backdrop-blur-lg shadow-lg z-50">
+          <div className="md:hidden  w-full bg-white bg-opacity-95 backdrop-blur-lg shadow-lg z-50">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <a href="/home" className="block px-3 py-2 text-blue-600 font-medium border-l-4 border-blue-600">Home</a>
               <a href="/wishlist" className=" px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 font-medium transition-colors duration-200 flex items-center">
                 <Heart className="h-5 w-5 mr-1" /> Wishlist
               </a>
+
               <a href="/visited" className=" px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 font-medium transition-colors duration-200 flex items-center">
                 <CheckSquare className="h-5 w-5 mr-1" /> Visited
               </a>
+
+              {userInfo ? (
+                <div className="flex items-center space-x-4 mt-4">
+                  <img
+                    crossOrigin="anonymous"
+                    referrerPolicy="no-referrer"
+                    src={userInfo.picture}
+                    alt="profile"
+                    className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-300"
+                  />
+                  <button
+                    onClick={() => {
+                      googleLogout();
+                      localStorage.clear();
+                      window.location.reload();
+                    }}
+                    className="w-full px-4 py-2 text-sm font-medium text-white border border-red-600 cursor-pointer bg-red-600 rounded-lg shadow-md hover:bg-white hover:text-red-500 hover:shadow-lg transition-all duration-300"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="w-full px-4 py-2 text-sm font-medium text-black border border-black cursor-pointer bg-white rounded-lg shadow-md hover:bg-black hover:text-white transition-all duration-300"
+                >
+                  Sign In
+                </button>
+              )}
             </div>
           </div>
         )}
