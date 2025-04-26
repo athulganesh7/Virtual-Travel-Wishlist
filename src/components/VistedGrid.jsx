@@ -1,31 +1,20 @@
 import React from 'react'
 import VistedItem from '../components/VistedItem';
 import { useEffect, useState } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+// import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../services/FirebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import { onSnapshot, query, collection, where } from 'firebase/firestore';
 
 const VistedGrid  = () => {
     const [visited, setVisited] = useState([]);
 
     const navigate = useNavigate()
   
-    // const fetchVisited = async () => {
-    //   const user = JSON.parse(localStorage.getItem('user'))
-    //   if (!user) {
-    //     console.log("No user found in localStorage");
-    //     navigate('/');  
-    //     return;
-    //   }
-    //   const snapshot = await getDocs(collection(db, 'VisitedTrips'), where('email', '==', user.email));
-      
-    //   const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
 
-    //   setVisited(items);
-    //   console.log(visited);
-    // };
 
-    const fetchVisited = async () => {
+    const fetchVisited = () => {
       const user = JSON.parse(localStorage.getItem('user'));
       if (!user) {
         console.log("No user found in localStorage");
@@ -35,12 +24,12 @@ const VistedGrid  = () => {
     
       const visitedRef = collection(db, 'VisitedTrips');
       const q = query(visitedRef, where('email', '==', user.email));
-      const snapshot = await getDocs(q);
     
-      const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setVisited(items);
-      console.log(visited);
-      
+      // Use onSnapshot to listen for real-time updates
+      onSnapshot(q, (snapshot) => {
+        const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setVisited(items); // This will trigger a re-render when data changes
+      });
     };
     
   
@@ -48,9 +37,9 @@ const VistedGrid  = () => {
       fetchVisited();
     }, []);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
     {visited.map(item => (
-      <VistedItem key={item.id} item={item} />
+      <VistedItem  key={item.id} item={item} />
     ))}
   </div>
 );

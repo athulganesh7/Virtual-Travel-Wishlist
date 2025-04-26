@@ -1,11 +1,15 @@
 import React from 'react'
-import { MapPin,Calendar,Award,Camera } from 'lucide-react';
+import { Award,Camera } from 'lucide-react';
 
 const TravelStates = () => {
-  const stats = [
+  
+
+   
+   
+        const stats = [
  
     { icon: <Award />, label: "Top Rated Destination", value: "Paris, France" },
-    { icon: <Camera />, label: "Total Photos", value: "236" }
+    { icon: <Camera />, label: "Total Photos", value:'236'}
   ];
 
   return (

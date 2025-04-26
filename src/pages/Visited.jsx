@@ -10,25 +10,19 @@ import VistedGrid from '../components/VistedGrid';
 import EmptyVisted from '../components/EmptyVisted'
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../services/FirebaseConfig"; 
+import { useNavigate } from 'react-router-dom';
 // Sample visited places data
 
 export default function Visited() {
+
+  const navigate = useNavigate()
   const [items, setItems] = useState([]);
+  
   
   useEffect(() => {
 
 
-    // const fetchVisitedTrips = async () => {
-    //   try {
-    //     const querySnapshot = await getDocs(collection(db, "VisitedTrips"));
-    //     const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    //     setItems(data);
-    //   } catch (error) {
-    //     console.error("Error fetching visited trips:", error);
-    //   } finally {
-        
-    //   }
-    // };
+    
   
      const fetchVisitedTrips = async () => {
           const user = JSON.parse(localStorage.getItem('user'));
@@ -62,7 +56,7 @@ export default function Visited() {
       <Header />
       <main className="flex-grow">
         <VistedHero totalDestinations={totalDestinations}  />
-        <TravelStates />
+        <TravelStates  />
         <VistedFilters />
         
         <section className="py-12 bg-gray-50">
@@ -76,7 +70,7 @@ export default function Visited() {
             </div>
             
             {items.length > 0 ? (
-              <VistedGrid items={items} />
+            <VistedGrid   />
             ) : (
               <EmptyVisted />
             )}
